@@ -72,11 +72,7 @@ define [
           newTemplate.append("<#{titleTagName} class='title'></#{titleTagName}")
 
         semanticBlock.activateHandler(selector, ($element) =>
-
-          if not $element.attr('data-type')
-            $element.attr('data-type', className)
- 
-          type = $element.attr('data-type')
+          type = $element.attr('data-type') or className
 
           $title = $element.children('.title')
           $title.attr('placeholder', 'Add a title (optional)')
