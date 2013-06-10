@@ -252,7 +252,7 @@ define [ 'aloha', 'aloha/plugin', 'jquery', 'popover/popover-plugin', 'ui/ui', '
 
   # $span contains the span with LaTeX/ASCIIMath
   buildEditor = ($span) ->
-    $editor = $_editor.clone()
+    $editor = $_editor.clone(true)
 
     # If this is new math, drop the plain text option.
     if $span.find('.mathjax-wrapper > *').length == 0
@@ -343,7 +343,7 @@ define [ 'aloha', 'aloha/plugin', 'jquery', 'popover/popover-plugin', 'ui/ui', '
         clearTimeout(keyTimeout)
         setTimeout(keyDelay.bind($formula), 500)
 
-    $span.off('shown-popover').on 'shown-popover', () ->
+    $span.off('shown-popover.math').on 'shown-popover.math', () ->
       $span.css 'background-color', '#E5EEF5'
       $el = jQuery(@)
       tt = $el.data('tooltip')
@@ -353,7 +353,7 @@ define [ 'aloha', 'aloha/plugin', 'jquery', 'popover/popover-plugin', 'ui/ui', '
         $popover.$tip.find('.formula').trigger('focus') if $popover
       , 10)
 
-    $span.off('hidden-popover').on 'hidden-popover', () ->
+    $span.off('hidden-popover.math').on 'hidden-popover.math', () ->
       $span.css 'background-color', ''
       tt = jQuery(@).data('tooltip')
       tt.enable() if tt
