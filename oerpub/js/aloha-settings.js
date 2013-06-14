@@ -32,11 +32,10 @@
             format: {
                 config : ['b', 'i', 'u', 'p', 'sub', 'sup', 'h1', 'h2', 'h3']
             },
-            note: {
-                types: {
-                    'note': true,
-                    'noteish': true,
-                    'noteish-notitle': false
+            table: {
+                editables: {
+                    '#canvas': { enabled: true },
+                    '.title-editor': {enabled: false},
                 }
             },
             block: {
