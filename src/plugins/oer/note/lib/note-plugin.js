@@ -50,32 +50,33 @@
             $title.aloha();
             $body = $element.contents().not($title);
             typeContainer = TYPE_CONTAINER.clone();
-            jQuery.each(_this.settings, function(i, foo) {
+            jQuery.each(_this.settings, function(i, dropType) {
               var $option;
               $option = jQuery('<li><a href=""></a></li>');
               $option.appendTo(typeContainer.find('.dropdown-menu'));
               $option = $option.children('a');
-              $option.text(foo.label);
-              return $option.on('click', function() {
+              $option.text(dropType.label);
+              return $option.on('click', function(e) {
                 var $newTitle, key;
-                if (foo.hasTitle) {
+                e.preventDefault();
+                if (dropType.hasTitle) {
                   if (!$element.children('.title')[0]) {
-                    $newTitle = jQuery("<" + (foo.titleTagName || 'span') + " class='title'></" + (foo.titleTagName || 'span'));
+                    $newTitle = jQuery("<" + (dropType.titleTagName || 'span') + " class='title'></" + (dropType.titleTagName || 'span'));
                     $element.append($newTitle);
                     $newTitle.aloha();
                   }
                 } else {
                   $element.children('.title').remove();
                 }
-                if (foo.type) {
-                  $element.attr('data-type', foo.type);
+                if (dropType.type) {
+                  $element.attr('data-type', dropType.type);
                 } else {
                   $element.removeAttr('data-type');
                 }
                 for (key in notishClasses) {
                   $element.removeClass(key);
                 }
-                return $element.addClass(foo.cls);
+                return $element.addClass(dropType.cls);
               });
             });
             typeContainer.find('.type').text(label);
@@ -83,7 +84,7 @@
             return $('<div>').addClass('body').attr('placeholder', "Type the text of your " + className + " here.").append($body).appendTo($element).aloha();
           });
           semanticBlock.deactivateHandler(selector, function($element) {
-            var $body, $title, hasTextChildren;
+            var $body, $title, $titleElement, hasTextChildren;
             $body = $element.children('.body');
             hasTextChildren = $body.children().length !== $body.contents().length;
             $body = $body.contents();
@@ -92,12 +93,13 @@
             }
             $element.children('.body').remove();
             if (hasTitle) {
-              $title = $element.children('.title');
-              if (!$title[0]) {
-                $title = jQuery("<" + titleTagName + "></" + titleTagName + ">");
-                $title.addClass('title');
-                $title.prependTo($element);
+              $titleElement = $element.children('.title');
+              $title = jQuery("<" + titleTagName + " class=\"title\"></" + titleTagName + ">");
+              if ($titleElement.length) {
+                $title.append($titleElement.contents());
+                $titleElement.remove();
               }
+              $title.prependTo($element);
             }
             return $element.append($body);
           });
