@@ -30,6 +30,10 @@
     background: #FAFAFA;
 }
 
+.semantic-container.delete-hover > .aloha-oer-block {
+    opacity: 0.3; 
+}
+
 .semantic-container {
     cursor: auto !important; /* override default aloha cursor for blocks */
     position: relative;
