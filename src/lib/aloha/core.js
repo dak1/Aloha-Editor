@@ -41,6 +41,7 @@ define([
 	 * @return {boolean} True if Aloha supports the current browser.
 	 */
 	function isBrowserSupported() {
+		return true; // temporary hack fix
 		var browser = $.browser;
 		var version = browser.version;
 		return !(
